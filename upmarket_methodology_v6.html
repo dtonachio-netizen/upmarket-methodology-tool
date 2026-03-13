@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Upmarket Methodology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3f4f6;
+    --panel:#ffffff;
+    --line:#e3e6ee;
+    --text:#303447;
+    --muted:#667085;
+    --muted-2:#7f8aa3;
+    --accent:#ff6a00;
+    --accent-soft:#fff4ec;
+    --pill:#eef2f6;
+    --item:#f8fafc;
+    --blue:#4c78ff;
+    --blue-soft:#edf3ff;
+    --radius:20px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    padding-bottom:22vh;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  }
+  .page{
+    max-width:1365px;
+    margin:0 auto;
+    padding:16px 18px 10px;
+    display:grid;
+    grid-template-columns:272px 1fr;
+    gap:22px;
+  }
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:20px;
+  }
+
+  .left{
+    padding:16px;
+    position:sticky;
+    top:16px;
+    align-self:start;
+  }
+  .left h2{
+    margin:0;
+    font-size:22px;
+    line-height:1.08;
+    font-weight:800;
+    letter-spacing:-0.03em;
+    color:#252b3d;
+  }
+  .left p{
+    margin:9px 0 14px;
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.4;
+    font-weight:500;
+  }
+  .stage-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .stage-btn{
+    width:100%;
+    text-align:left;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:11px 12px 12px 14px;
+    cursor:pointer;
+    transition:transform .16s ease, border-color .16s ease, background .16s ease;
+    position:relative;
+  }
+  .stage-btn:hover{
+    transform:translateY(-1px);
+  }
+  .stage-btn.current{
+    background:var(--accent-soft);
+    border-color:#ffba88;
+  }
+  .stage-btn.current::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:10px;
+    bottom:10px;
+    width:4px;
+    border-radius:0 6px 6px 0;
+    background:var(--accent);
+  }
+  .stage-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:5px;
+  }
+  .stage-code{
+    color:var(--accent);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+  .stage-status{
+    color:#73809c;
+    font-size:12px;
+    font-weight:700;
+  }
+  .stage-name{
+    font-size:14px;
+    line-height:1.25;
+    font-weight:800;
+    color:#171c2c;
+    margin-bottom:3px;
+    letter-spacing:-.02em;
+  }
+  .stage-theme{
+    color:#69758d;
+    font-size:12px;
+    line-height:1.35;
+    font-weight:500;
+  }
+
+  .right{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .hero{
+    padding:24px 22px;
+    display:grid;
+    grid-template-columns:1fr 356px;
+    gap:20px;
+  }
+  .hero h1{
+    margin:3px 0 6px;
+    font-size:33px;
+    line-height:1.08;
+    font-weight:800;
+    letter-spacing:-0.04em;
+    color:#35394d;
+  }
+  .hero .desc{
+    margin:0;
+    font-size:15px;
+    line-height:1.5;
+    color:#535f77;
+    font-weight:500;
+  }
+  .hero-meta{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:12px;
+    max-width:528px;
+  }
+  .meta{
+    min-height:92px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:15px 16px 14px;
+    background:#fff;
+  }
+  .meta-label{
+    font-size:11px;
+    line-height:1;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    color:#7e88a0;
+    margin-bottom:10px;
+    font-weight:600;
+  }
+  .meta-value{
+    font-size:18px;
+    line-height:1.2;
+    font-weight:800;
+    color:#202538;
+    letter-spacing:-0.02em;
+  }
+  .guru-link{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:132px;
+    height:40px;
+    border-radius:12px;
+    background:var(--accent);
+    color:#fff;
+    text-decoration:none;
+    font-size:16px;
+    font-weight:800;
+    letter-spacing:-.02em;
+  }
+
+  .hero-side{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    padding-top:8px;
+  }
+  .mini-flip{
+    height:111px;
+    perspective:1000px;
+  }
+  .mini-flip-inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    transform-style:preserve-3d;
+    transition:transform .55s ease;
+  }
+  .mini-flip.hover-flip:not(.open):hover .mini-flip-inner,
+  .mini-flip.open .mini-flip-inner{
+    transform:rotateY(180deg);
+  }
+  .mini-face{
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:#fff;
+    padding:16px 18px;
+    overflow:auto;
+  }
+  .mini-front{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:#f3f4f6;
+    border-color:#d7dce5;
+  }
+  .mini-front strong{
+    font-size:18px;
+    line-height:1.2;
+    font-weight:800;
+    letter-spacing:-.02em;
+    color:#1e2335;
+  }
+  .flip-hint{
+    position:absolute;
+    right:14px;
+    bottom:12px;
+    width:26px;
+    height:26px;
+    border-radius:999px;
+    border:1px solid #d1d7e0;
+    background:#ffffff;
+    color:#687385;
+    display:grid;
+    place-items:center;
+    font-size:13px;
+    font-weight:800;
+    line-height:1;
+    box-shadow:0 1px 2px rgba(16,24,40,.05);
+  }
+  .mini-back{
+    transform:rotateY(180deg);
+    background:#f3f4f6;
+    border-color:#d7dce5;
+    cursor:pointer;
+  }
+  .mini-title{
+    margin:0 0 8px;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--accent);
+    font-weight:800;
+  }
+  .mini-back ul{
+    margin:0;
+    padding-left:18px;
+  }
+  .mini-back li{
+    margin:0 0 6px;
+    font-size:13px;
+    line-height:1.45;
+    color:#2f3547;
+  }
+
+  .section{
+    padding:14px 12px 18px;
+  }
+  .section-title{
+    margin:0 0 14px 14px;
+    font-size:27px;
+    line-height:1.12;
+    font-weight:800;
+    letter-spacing:-0.04em;
+    color:#34384b;
+  }
+
+  .focus-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    padding:0 10px 4px;
+  }
+  .focus-btn{
+    min-height:154px;
+    padding:22px 16px 16px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:18px;
+    text-align:left;
+    cursor:pointer;
+    transition:transform .16s ease, border-color .16s ease, background .16s ease;
+  }
+  .focus-btn:hover{
+    transform:translateY(-1px);
+  }
+  .focus-btn.active{
+    border:2px solid var(--accent);
+    background:var(--accent-soft);
+  }
+  .focus-icon{
+    width:40px;
+    height:38px;
+    border-radius:12px;
+    background:#edf0f4;
+    border:1px solid #dde2ea;
+    display:grid;
+    place-items:center;
+    font-size:15px;
+    font-weight:700;
+    color:#303447;
+    margin-bottom:14px;
+  }
+  .focus-btn strong{
+    display:block;
+    font-size:17px;
+    line-height:1.18;
+    font-weight:800;
+    letter-spacing:-0.02em;
+    margin-bottom:8px;
+    color:#1f2435;
+  }
+  .focus-btn span{
+    display:block;
+    font-size:13px;
+    line-height:1.45;
+    color:#6a758d;
+    font-weight:500;
+  }
+
+  .detail-wrap{
+    padding:8px 10px 4px;
+  }
+  .detail{
+    min-height:420px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:28px 34px 32px;
+    background:#fff;
+  }
+  .detail h3{
+    margin:0 0 20px;
+    font-size:28px;
+    line-height:1.1;
+    font-weight:800;
+    letter-spacing:-0.04em;
+    color:#373b4f;
+    text-transform:none;
+  }
+  .pill-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:20px;
+  }
+  .pill{
+    background:var(--pill);
+    color:#4f586c;
+    border-radius:999px;
+    padding:7px 12px;
+    font-size:12px;
+    font-weight:700;
+    line-height:1;
+  }
+  .subhead{
+    margin:0 0 10px;
+    font-size:15px;
+    line-height:1.25;
+    font-weight:800;
+    color:#1f2435;
+    letter-spacing:-0.01em;
+  }
+  .detail-section{
+    margin-top:22px;
+  }
+  .why{
+    margin:0;
+    font-size:15px;
+    line-height:1.6;
+    color:#617399;
+    font-weight:500;
+  }
+  .detail-list{
+    display:grid;
+    gap:12px;
+  }
+  .detail-item{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    background:var(--item);
+    border:1px solid #dfe5ee;
+    border-radius:14px;
+    padding:12px 14px;
+  }
+  .detail-dot{
+    width:22px;
+    height:22px;
+    flex:0 0 auto;
+    border-radius:999px;
+    background:var(--check-bg);
+    color:var(--blue);
+    display:grid;
+    place-items:center;
+    font-size:12px;
+    font-weight:900;
+    margin-top:1px;
+  }
+  .detail-text{
+    font-size:14px;
+    line-height:1.55;
+    color:#475267;
+    font-weight:500;
+  }
+
+  @media (max-width:1220px){
+    .page{grid-template-columns:1fr}
+    .left{position:relative;top:0}
+    .hero{grid-template-columns:1fr}
+    .focus-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:780px){
+    .page{padding:14px}
+    .hero h1{font-size:28px}
+    .hero-meta{grid-template-columns:1fr}
+    .focus-grid{grid-template-columns:1fr}
+    .detail{padding:22px}
+  }
+
+  /* tutor widget */
+  .tutor-widget{position:fixed;right:24px;bottom:24px;width:360px;z-index:9999;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;}
+  .tutor-widget.collapsed .tutor-body{display:none;}
+  .tutor-shell{border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 18px 40px rgba(16,24,40,.18);overflow:hidden;}
+  .tutor-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;background:#fff;border-bottom:1px solid var(--line);cursor:move;user-select:none;}
+  .tutor-title-wrap{display:flex;align-items:center;gap:10px;min-width:0;}
+  .tutor-icon{width:32px;height:32px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:14px;flex:0 0 auto;}
+  .tutor-title{font-size:14px;font-weight:800;color:#1f2435;line-height:1.2;}
+  .tutor-subtitle{font-size:12px;color:var(--muted);line-height:1.2;}
+  .tutor-controls{display:flex;gap:8px;}
+  .tutor-ctrl{width:30px;height:30px;border:1px solid var(--line);border-radius:10px;background:#fff;color:#344054;cursor:pointer;font-weight:700;}
+  .tutor-body{padding:12px;display:flex;flex-direction:column;gap:10px;background:#fff;}
+  .tutor-messages{height:270px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding-right:2px;}
+  .tutor-msg{border-radius:14px;padding:10px 12px;font-size:13px;line-height:1.5;white-space:pre-wrap;}
+  .tutor-msg.assistant{background:#f8fafc;border:1px solid var(--line);color:#334155;}
+  .tutor-msg.user{background:var(--accent-soft);border:1px solid #ffd4b6;color:#7a3d00;align-self:flex-end;max-width:92%;}
+  .tutor-quick{display:flex;flex-wrap:wrap;gap:8px;}
+  .tutor-chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 10px;font-size:12px;color:#475467;cursor:pointer;}
+  .tutor-form{display:flex;gap:8px;}
+  .tutor-input{flex:1 1 auto;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13px;font-family:inherit;}
+  .tutor-send{border:none;border-radius:12px;background:var(--accent);color:#fff;padding:0 14px;font-weight:800;cursor:pointer;}
+
+
+/* Wrapper tutor - fixed bottom 25% */
+.wrapper-tutor{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:20vh; min-height:150px;
+  background:linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  border-top:1px solid rgba(16,24,40,0.06);
+  box-shadow:0 -8px 24px rgba(16,24,40,0.06);
+  z-index:9998;
+  display:flex;
+  gap:16px;
+  padding:14px 18px;
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+.wrapper-left{flex:0 0 260px; display:flex; flex-direction:column; gap:5px;}
+.wrapper-mid{flex:1 1 auto; display:flex; flex-direction:column; gap:7px; padding:4px;}
+.wrapper-right{flex:0 0 220px; display:flex; flex-direction:column; gap:8px; align-items:flex-end; justify-content:flex-start;}
+.wt-title{font-weight:800; font-size:16px;}
+.wt-sub{font-size:13px; color:#475467;}
+.wt-instruction{font-size:14px; color:#0f1724; background:#fff; border:1px solid var(--line); padding:12px; border-radius:10px; min-height:56px;}
+.wt-controls{display:flex; gap:8px; align-items:center;}
+.wt-btn{padding:10px 12px; border-radius:10px; font-weight:700; cursor:pointer; border:1px solid var(--line); background:#fff;}
+.wt-primary{background:var(--accent); color:#fff; border:none;}
+.wt-secondary{background:#fff; color:#0f1724;}
+.wt-small{padding:8px 10px; font-size:13px;}
+.wt-note{font-size:12px; color:#616e7a;}
+
+
+/* Tour overlay */
+.tour-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,36,.48);
+  z-index:10020;
+  display:none;
+}
+.tour-overlay.active{ display:block; }
+.tour-highlight{
+  position:fixed;
+  border:2px solid #ff6a00;
+  border-radius:18px;
+  box-shadow:0 0 0 9999px rgba(15,23,36,.48);
+  background:transparent;
+  pointer-events:none;
+  z-index:10021;
+  display:none;
+}
+.tour-highlight.active{ display:block; }
+.tour-card{
+  position:fixed;
+  width:360px;
+  max-width:calc(100vw - 32px);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:0 18px 40px rgba(16,24,40,.18);
+  z-index:10022;
+  display:none;
+  overflow:hidden;
+}
+.tour-card.active{ display:block; }
+.tour-card-head{
+  padding:14px 16px 8px;
+  font-size:18px;
+  font-weight:800;
+  color:#1f2435;
+}
+.tour-card-body{
+  padding:0 16px 14px;
+  font-size:14px;
+  line-height:1.55;
+  color:#475467;
+}
+.tour-card-foot{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  padding:12px 16px 16px;
+}
+.tour-step{
+  font-size:12px;
+  color:#667085;
+}
+.tour-btns{
+  display:flex;
+  gap:8px;
+}
+.tour-btn{
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:#1f2435;
+  font-weight:700;
+  cursor:pointer;
+}
+.tour-btn.primary{
+  background:var(--accent);
+  color:#fff;
+  border-color:var(--accent);
+}
+.tour-start{
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:420px;
+  max-width:calc(100vw - 32px);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+  box-shadow:0 20px 50px rgba(16,24,40,.22);
+  z-index:10023;
+  display:none;
+  overflow:hidden;
+}
+.tour-start.active{ display:block; }
+.tour-start-head{
+  padding:18px 18px 8px;
+  font-size:22px;
+  line-height:1.1;
+  font-weight:800;
+  color:#1f2435;
+}
+.tour-start-body{
+  padding:0 18px 16px;
+  font-size:14px;
+  line-height:1.55;
+  color:#475467;
+}
+.tour-start-foot{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  padding:0 18px 18px;
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <aside class="card left">
+    <h2>Upmarket Methodology<br>Stages</h2>
+    <p>Select the stage you are reviewing.</p>
+    <div class="stage-list" id="stageList"></div>
+  </aside>
+
+  <main class="right">
+    <section class="card hero">
+      <div>
+        <h1 id="heroTitle"></h1>
+        <p class="desc" id="heroDesc"></p>
+
+        <div class="hero-meta">
+          <div class="meta">
+            <div class="meta-label">Timeline</div>
+            <div class="meta-value" id="heroTimeline"></div>
+          </div>
+          <div class="meta">
+            <div class="meta-label">Resource</div>
+            <div class="meta-value">
+              <a id="guruLink" class="guru-link" target="_blank" rel="noopener noreferrer">Guru</a>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="meta-label">Teams</div>
+            <div class="meta-value" id="heroTeams"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-side">
+        <div class="mini-flip hover-flip" id="successFlip">
+          <div class="mini-flip-inner">
+            <div class="mini-face mini-front"><strong>Success Criteria</strong><span class="flip-hint">↻</span></div>
+            <div class="mini-face mini-back">
+              <p class="mini-title">Success Criteria</p>
+              <ul id="successBack"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-flip hover-flip" id="watchFlip">
+          <div class="mini-flip-inner">
+            <div class="mini-face mini-front"><strong>Watch Out For</strong><span class="flip-hint">↻</span></div>
+            <div class="mini-face mini-back">
+              <p class="mini-title">Watch Out For</p>
+              <ul id="watchBack"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card section">
+      <h2 class="section-title">Stage at a Glance</h2>
+      <div class="focus-grid" id="focusGrid"></div>
+    </section>
+
+    <section class="card section">
+      <div class="detail-wrap">
+        <div class="detail">
+          <h3 id="detailTitle"></h3>
+          <div class="pill-row" id="detailTags"></div>
+
+          <div class="detail-section">
+            <p class="subhead">Why it matters</p>
+            <p class="why" id="detailWhy"></p>
+          </div>
+
+          <div class="detail-section">
+            <p class="subhead">Responsibilities</p>
+            <div class="detail-list" id="responsibilitiesList"></div>
+          </div>
+
+          <div class="detail-section">
+            <p class="subhead">Deliverables</p>
+            <div class="detail-list" id="deliverablesList"></div>
+          </div>
+
+          <div class="detail-section">
+            <p class="subhead">Handoff Expectations</p>
+            <div class="detail-list" id="handoffList"></div>
+          </div>
+
+          <div class="detail-section">
+            <p class="subhead">What to do</p>
+            <div class="detail-list" id="detailList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+const stages = [
+  {
+    id:"S0",
+    name:"Sales-to-Service",
+    theme:"Handoff and alignment",
+    title:"Stage 0: Sales-to-Service",
+    desc:"Transfer the full context of the deal from Sales to Implementation.",
+    timeline:"3–5 days",
+    teams:["AE","SC","TC","IC"],
+    guru:"https://app.getguru.com/card/TAeyk5Mc/Upmarket-S0-SalestoService",
+    successCriteria:[
+      "Confirm the handoff document and call are complete.",
+      "Confirm shared understanding of customer scope and assumptions.",
+      "Confirm rollout plan, including spend rollout plan.",
+      "Confirm kickoff deck and project plan are updated."
+    ],
+    watchouts:[
+      "Missing discovery docs.",
+      "Unclear integration scope."
+    ],
+    focuses:[
+      {
+        title:"Gather source docs",
+        blurb:"Collect inputs used during the sales cycle.",
+        why:"Implementation requires the same context used to close the deal.",
+        tags:["Prep","AE + IC","Inputs"],
+        responsibilities:[
+          "Review the sales-source documents that define the original deal context.",
+          "Verify the handoff includes enough detail for implementation to proceed."
+        ],
+        deliverables:[
+          "Reviewed source-document set.",
+          "Confirmed implementation-ready context package."
+        ],
+        handoffExpectations:[
+          "Implementation should understand the customer's goals, scope, and source materials before the live handoff.",
+          "Any missing source materials should be identified before advancing."
+        ],
+        items:[
+          "Review SOW.",
+          "Review discovery sheet.",
+          "Review MAP."
+        ]
+      },
+      {
+        title:"Run S2S handoff",
+        blurb:"Align the teams live.",
+        why:"Ensures scope and assumptions are shared.",
+        tags:["Live alignment","Call","Customer context"],
+        responsibilities:[
+          "Lead or participate in the live Sales-to-Service handoff conversation.",
+          "Capture key assumptions, decisions, and unresolved questions."
+        ],
+        deliverables:[
+          "Completed S2S handoff conversation.",
+          "Documented scope, proposal, and rollout alignment."
+        ],
+        handoffExpectations:[
+          "Implementation should leave the handoff with clear scope, open questions, and next actions.",
+          "Proposal and rollout assumptions should be aligned across teams."
+        ],
+        items:[
+          "Conduct S2S call.",
+          "Review proposal.",
+          "Confirm rollout plan."
+        ]
+      },
+      {
+        title:"Clarify technical scope",
+        blurb:"Confirm integrations.",
+        why:"Technical assumptions cause delays later.",
+        tags:["TC","Integrations","Risk control"],
+        responsibilities:[
+          "Validate the expected technical footprint before kickoff.",
+          "Surface any integration, data, or sandbox risks early."
+        ],
+        deliverables:[
+          "Confirmed integration scope.",
+          "Documented sandbox or technical dependencies."
+        ],
+        handoffExpectations:[
+          "Technical unknowns should be visible before the project moves forward.",
+          "Any dependency that could block kickoff should be flagged."
+        ],
+        items:[
+          "Confirm integrations.",
+          "Confirm sandbox plan."
+        ]
+      },
+      {
+        title:"Prep implementation assets",
+        blurb:"Prepare kickoff materials.",
+        why:"Kickoff should start with working assets.",
+        tags:["Kickoff prep","Project plan","Handoff"],
+        responsibilities:[
+          "Prepare the core materials needed to launch implementation cleanly.",
+          "Ensure project artifacts reflect the current customer scope."
+        ],
+        deliverables:[
+          "Kickoff deck.",
+          "Project plan."
+        ],
+        handoffExpectations:[
+          "Implementation should enter kickoff with customer-ready assets.",
+          "Stage outputs should be usable immediately in Stage 1."
+        ],
+        items:[
+          "Create kickoff deck.",
+          "Create project plan."
+        ]
+      },
+      {
+        title:"Confirm exit criteria",
+        blurb:"Verify readiness.",
+        why:"Do not move forward just because the call happened. Move forward because the handoff is actually usable.",
+        tags:["Done means done","Success","Advance"],
+        responsibilities:[
+          "Verify that Stage 0 outputs are complete and usable.",
+          "Confirm readiness before advancing the implementation record."
+        ],
+        deliverables:[
+          "Validated Stage 0 completion.",
+          "Implementation record ready to advance."
+        ],
+        handoffExpectations:[
+          "The next stage should inherit complete context, current assets, and agreed rollout assumptions.",
+          "The implementation record should only move once exit criteria are actually met."
+        ],
+        items:[
+          "Confirm the handoff document and call are complete.",
+          "Confirm shared understanding of customer scope and assumptions.",
+          "Confirm rollout plan, including spend rollout plan.",
+          "Confirm kickoff deck and project plan are updated.",
+          "Move the IR from S0 to S1."
+        ]
+      }
+    ]
+  },
+  {
+    id:"S1",
+    name:"Kickoff",
+    theme:"Shared plan and expectations",
+    title:"Stage 1: Kickoff",
+    desc:"Set the project rhythm, scope, and shared expectations.",
+    timeline:"1 week",
+    teams:["AE","CSM","TC","IC"],
+    guru:"https://app.getguru.com/card/iGedL5bT/Upmarket-S1-Kickoff-",
+    successCriteria:[
+      "Customer confirms timeline, scope, and resource requirements.",
+      "Weekly sync expectations are established.",
+      "Kickoff recap and project plan are updated."
+    ],
+    watchouts:["Scope ambiguity.","Missing owners."],
+    focuses:[
+      {
+        title:"Introduce the team",
+        blurb:"Clarify who owns what.",
+        why:"Customers need a clear sense of who is driving the work.",
+        tags:["Roles","Ownership"],
+        responsibilities:[
+          "Set clear ownership across internal and customer stakeholders.",
+          "Make role clarity explicit at the start of the project."
+        ],
+        deliverables:[
+          "Defined stakeholder roles.",
+          "Confirmed ownership model."
+        ],
+        handoffExpectations:[
+          "The customer should know who to go to for implementation questions and decisions.",
+          "Role clarity should reduce confusion in future stages."
+        ],
+        items:["Introduce stakeholders.","Clarify ownership."]
+      },
+      {
+        title:"Set the timeline",
+        blurb:"Turn a deal into a project.",
+        why:"Without an agreed timeline, later stages become reactive.",
+        tags:["Timeline","Cadence"],
+        responsibilities:[
+          "Convert the agreed scope into a working project timeline.",
+          "Establish cadence and milestone expectations."
+        ],
+        deliverables:[
+          "Working milestone timeline.",
+          "Documented sync cadence."
+        ],
+        handoffExpectations:[
+          "The customer should understand the sequence of work and timing assumptions.",
+          "Future stages should build from an agreed schedule."
+        ],
+        items:["Review milestones.","Set sync expectations."]
+      },
+      {
+        title:"Reconfirm scope",
+        blurb:"Make sure everyone is solving the same problem.",
+        why:"This is the last easy place to fix misunderstandings.",
+        tags:["Scope","Alignment"],
+        responsibilities:[
+          "Validate that kickoff scope still matches the sold solution.",
+          "Resolve ambiguity before design work starts."
+        ],
+        deliverables:[
+          "Confirmed scope statement.",
+          "Aligned success definition."
+        ],
+        handoffExpectations:[
+          "Requirements and design should start from shared scope and outcomes.",
+          "Any scope conflict should be surfaced before Stage 2."
+        ],
+        items:["Review scope.","Confirm success definition."]
+      },
+      {
+        title:"Document follow-up",
+        blurb:"Turn kickoff into tracked work.",
+        why:"Outputs need to become the working source of truth.",
+        tags:["Recap","Artifacts"],
+        responsibilities:[
+          "Document decisions and next steps from kickoff.",
+          "Update implementation artifacts immediately after the meeting."
+        ],
+        deliverables:[
+          "Kickoff recap.",
+          "Updated project plan."
+        ],
+        handoffExpectations:[
+          "The project should move into active work with current documentation.",
+          "Follow-up artifacts should accurately reflect kickoff decisions."
+        ],
+        items:["Send recap.","Update plan."]
+      },
+      {
+        title:"Advance to design",
+        blurb:"Hand the project into active requirements work.",
+        why:"The stage should end with alignment strong enough to begin design.",
+        tags:["Exit","Transition"],
+        responsibilities:[
+          "Confirm kickoff outputs are complete before advancing.",
+          "Transition the project into requirements and design work."
+        ],
+        deliverables:[
+          "Kickoff stage closed out.",
+          "Project ready for Stage 2."
+        ],
+        handoffExpectations:[
+          "Requirements work should begin with aligned scope, timing, and ownership.",
+          "Stage advancement should reflect actual readiness, not just elapsed time."
+        ],
+        items:["Schedule next sessions.","Move IR to S2."]
+      }
+    ]
+  },
+  {
+    id:"S2",
+    name:"Requirements & Design",
+    theme:"Co-design and train-the-trainer",
+    title:"Stage 2: Requirements & Design",
+    desc:"Co-design the solution and get to approved direction.",
+    timeline:"2–3 weeks",
+    teams:["IC","TC","TSS"],
+    guru:"https://app.getguru.com/card/cX5BR69i/Upmarket-S2-Gathering-Requirements-Design",
+    successCriteria:[
+      "Customer gives verbal sign-off on dashboard mockup and documented use cases.",
+      "Customer is ready to start configuration.",
+      "Entity and integration prerequisites are in progress or complete."
+    ],
+    watchouts:["Undocumented decisions.","Lagging prerequisites."],
+    focuses:[
+      {
+        title:"Discover workflows",
+        blurb:"Understand how work happens today.",
+        why:"Design quality depends on operational context.",
+        tags:["Discovery","Use cases"],
+        responsibilities:[
+          "Understand the customer's current processes, pain points, and operating realities.",
+          "Capture use cases that will inform the recommended design."
+        ],
+        deliverables:[
+          "Documented workflow understanding.",
+          "Defined use cases."
+        ],
+        handoffExpectations:[
+          "The proposed design should reflect actual workflows, not assumptions.",
+          "Design decisions should be traceable to captured use cases."
+        ],
+        items:["Review workflows.","Document use cases."]
+      },
+      {
+        title:"Design the dashboard",
+        blurb:"Shape the operating model.",
+        why:"The dashboard defines the customer’s daily experience.",
+        tags:["Dashboard","Design"],
+        responsibilities:[
+          "Translate workflow needs into a proposed dashboard structure.",
+          "Recommend a scalable operating model based on best practices."
+        ],
+        deliverables:[
+          "Dashboard mockup or draft design.",
+          "Recommended operating model."
+        ],
+        handoffExpectations:[
+          "Configuration work should follow an approved design direction.",
+          "The design should be specific enough for build decisions."
+        ],
+        items:["Mock dashboard.","Recommend best practices."]
+      },
+      {
+        title:"Get design approval",
+        blurb:"Move from ideas to chosen direction.",
+        why:"Configuration gets messy when approval is vague.",
+        tags:["Approval","Decision"],
+        responsibilities:[
+          "Secure clear customer agreement on the proposed direction.",
+          "Record the decisions that lock the design."
+        ],
+        deliverables:[
+          "Captured decisions.",
+          "Documented approval."
+        ],
+        handoffExpectations:[
+          "Stage 3 should begin with an approved design, not unresolved options.",
+          "Build should not rely on implied approval."
+        ],
+        items:["Capture decisions.","Confirm sign-off."]
+      },
+      {
+        title:"Prep integrations",
+        blurb:"Remove blockers before build.",
+        why:"The project slows fast when prerequisites are assumed.",
+        tags:["ERP","HRIS","SSO"],
+        responsibilities:[
+          "Validate technical readiness and dependencies before configuration.",
+          "Track prerequisites that could block build."
+        ],
+        deliverables:[
+          "Readiness review.",
+          "Tracked prerequisite list."
+        ],
+        handoffExpectations:[
+          "Configuration should begin with dependency visibility.",
+          "Open prerequisites should be known and actively managed."
+        ],
+        items:["Review readiness.","Track open prerequisites."]
+      },
+      {
+        title:"Train the trainer",
+        blurb:"Build customer ownership early.",
+        why:"The customer should learn while shaping the system.",
+        tags:["Enablement","Ownership"],
+        responsibilities:[
+          "Coach customer admins during the design phase.",
+          "Build internal customer ownership before build is complete."
+        ],
+        deliverables:[
+          "Admin enablement foundation.",
+          "Prepared customer champions."
+        ],
+        handoffExpectations:[
+          "The customer should enter configuration with growing confidence and context.",
+          "Knowledge transfer should begin before launch readiness."
+        ],
+        items:["Use teach-to-fish model.","Prepare admins."]
+      }
+    ]
+  },
+  {
+    id:"S3",
+    name:"Configuration & Integration",
+    theme:"Build, connect, and test",
+    title:"Stage 3: Configuration & Integration",
+    desc:"Build the approved solution and validate technical connections.",
+    timeline:"2–3 weeks",
+    teams:["IC","TC","AWX","CSM"],
+    guru:"https://app.getguru.com/card/c7xRq67i/Upmarket-S3-Configuration-Integration",
+    successCriteria:[
+      "Dashboard configuration is complete.",
+      "Integrations are functioning and ready for go-live prep.",
+      "Customer gives readiness approval."
+    ],
+    watchouts:["Weak validation.","Open issues not tracked."],
+    focuses:[
+      {
+        title:"Configure the dashboard",
+        blurb:"Build what was approved.",
+        why:"Configuration should follow design decisions directly.",
+        tags:["Build","Setup"],
+        responsibilities:[
+          "Build the dashboard according to the approved design.",
+          "Keep build decisions aligned to documented requirements."
+        ],
+        deliverables:[
+          "Configured dashboard.",
+          "Design-aligned implementation."
+        ],
+        handoffExpectations:[
+          "The configured environment should reflect what the customer approved in Stage 2.",
+          "Build deviations should be visible and intentional."
+        ],
+        items:["Configure collaboratively.","Keep aligned to design."]
+      },
+      {
+        title:"Validate integrations",
+        blurb:"Make sure connected systems work.",
+        why:"Technical work is only real when the data flow works in practice.",
+        tags:["Validation","Systems"],
+        responsibilities:[
+          "Test data flow between Brex and customer systems.",
+          "Confirm technical outputs match design assumptions."
+        ],
+        deliverables:[
+          "Validated ERP exports.",
+          "Confirmed employee data flow."
+        ],
+        handoffExpectations:[
+          "Go-live prep should begin only after working technical validation.",
+          "Open issues should be documented before stage transition."
+        ],
+        items:["Validate ERP exports.","Test employee data flows."]
+      },
+      {
+        title:"Use the project plan live",
+        blurb:"Keep the work visible.",
+        why:"A visible plan reduces confusion and improves accountability.",
+        tags:["Project plan","Visibility"],
+        responsibilities:[
+          "Use the project plan as an active management tool during execution.",
+          "Keep progress and open items visible to the customer."
+        ],
+        deliverables:[
+          "Current project plan.",
+          "Updated progress record."
+        ],
+        handoffExpectations:[
+          "The customer and internal team should share the same view of progress and blockers.",
+          "Go-live prep should inherit a current execution plan."
+        ],
+        items:["Review plan in calls.","Update after each sync."]
+      },
+      {
+        title:"Prepare for readiness",
+        blurb:"Build toward approval.",
+        why:"The stage should end with clear readiness signals.",
+        tags:["Testing","Readiness"],
+        responsibilities:[
+          "Track issues that could block launch readiness.",
+          "Define what must be true before stage exit."
+        ],
+        deliverables:[
+          "Issue tracking view.",
+          "Defined readiness picture."
+        ],
+        handoffExpectations:[
+          "Stage 4 should begin with clarity on what remains and what is already validated.",
+          "Readiness should be explicit, not assumed."
+        ],
+        items:["Track open issues.","Confirm go-live conditions."]
+      },
+      {
+        title:"Hand off to prep",
+        blurb:"Transition into go-live prep with confidence.",
+        why:"Go-live prep is cleaner when readiness is explicit.",
+        tags:["Exit","Transition"],
+        responsibilities:[
+          "Close Stage 3 only when build and validation outputs are usable.",
+          "Move the project into launch-prep mode with a clear status."
+        ],
+        deliverables:[
+          "Stage 3 completion state.",
+          "Project ready for Stage 4."
+        ],
+        handoffExpectations:[
+          "Go-live prep should inherit validated systems, current issue tracking, and a clear readiness baseline.",
+          "The implementation record should only move when the transition is operationally sound."
+        ],
+        items:["Confirm completion.","Move IR to S4."]
+      }
+    ]
+  },
+  {
+    id:"S4",
+    name:"Go Live Prep",
+    theme:"Validation, testing, and training",
+    title:"Stage 4: Go Live Prep",
+    desc:"Validate readiness through testing, training, and cutover planning.",
+    timeline:"1–2 weeks",
+    teams:["IC","TC"],
+    guru:"https://app.getguru.com/card/ck9bjBGi/Upmarket-S4-Go-Live-Prep-Validation-Testing-Training",
+    successCriteria:[
+      "Customer completes user testing and validates system structure.",
+      "Verbal sign-off for go-live is received.",
+      "Stakeholders understand transition dates and support model."
+    ],
+    watchouts:["Weak reconciliation evidence.","Unclear support expectations."],
+    focuses:[
+      {
+        title:"Validate the system",
+        blurb:"Prove the setup works end to end.",
+        why:"Readiness should be demonstrated, not assumed.",
+        tags:["Validation","Evidence"],
+        responsibilities:[
+          "Verify that the configured system behaves correctly in practice.",
+          "Collect evidence that the implementation is structurally sound."
+        ],
+        deliverables:[
+          "Completed reconciliation.",
+          "Validated system structure."
+        ],
+        handoffExpectations:[
+          "Launch prep should rely on proof, not assumption.",
+          "Testing results should support a go-live decision."
+        ],
+        items:["Complete reconciliation.","Verify successful exports."]
+      },
+      {
+        title:"Train admins and users",
+        blurb:"Get people ready, not just the product.",
+        why:"A ready system can still fail if the team cannot operate it.",
+        tags:["Training","Adoption"],
+        responsibilities:[
+          "Enable customer admins and end users to operate the solution confidently.",
+          "Translate build decisions into usable customer knowledge."
+        ],
+        deliverables:[
+          "Admin training.",
+          "User training."
+        ],
+        handoffExpectations:[
+          "Go-live should begin with trained stakeholders, not just finished configuration.",
+          "The support model should account for training outcomes."
+        ],
+        items:["Deliver admin training.","Deliver user training."]
+      },
+      {
+        title:"Plan change management",
+        blurb:"Make the transition understandable.",
+        why:"Users need to know what is changing and when.",
+        tags:["Change management","Comms"],
+        responsibilities:[
+          "Clarify how the change will be communicated and supported.",
+          "Ensure the customer understands the transition plan."
+        ],
+        deliverables:[
+          "Communication plan.",
+          "Support model clarity."
+        ],
+        handoffExpectations:[
+          "Stakeholders should understand go-live timing and support expectations before launch.",
+          "The launch plan should be operationally understandable."
+        ],
+        items:["Confirm communication plan.","Clarify support model."]
+      },
+      {
+        title:"Confirm cutover",
+        blurb:"Make transition timing explicit.",
+        why:"Risk rises when transition dates stay vague.",
+        tags:["Cutover","Dates"],
+        responsibilities:[
+          "Set explicit cutover expectations and ownership.",
+          "Confirm that all stakeholders understand launch timing."
+        ],
+        deliverables:[
+          "Go-live date.",
+          "Stakeholder cutover awareness."
+        ],
+        handoffExpectations:[
+          "Launch should happen on an explicitly confirmed timeline.",
+          "The customer should know when responsibility shifts into go-live execution."
+        ],
+        items:["Confirm go-live date.","Confirm stakeholder awareness."]
+      },
+      {
+        title:"Approve launch readiness",
+        blurb:"End the stage with sign-off.",
+        why:"The stage should close with clear verbal confirmation.",
+        tags:["Approval","Exit"],
+        responsibilities:[
+          "Secure the final readiness decision before go-live.",
+          "Close the stage only when readiness has been explicitly confirmed."
+        ],
+        deliverables:[
+          "Launch readiness approval.",
+          "Project ready for Stage 5."
+        ],
+        handoffExpectations:[
+          "Go-live and hypercare should begin with confirmed readiness, not implied acceptance.",
+          "Stage transition should reflect a deliberate approval moment."
+        ],
+        items:["Collect sign-off.","Move IR to S5."]
+      }
+    ]
+  },
+  {
+    id:"S5",
+    name:"Go-Live + Hypercare",
+    theme:"Adoption and managed handoff",
+    title:"Stage 5: Go-Live + Hypercare",
+    desc:"Support adoption, stabilize issues, and prepare the handoff to CSM.",
+    timeline:"3 weeks",
+    teams:["IC","CSM","TC","DSS"],
+    guru:"https://app.getguru.com/card/cjMB46Ai/Upmarket-S5-GoLive-Hypercare",
+    successCriteria:[
+      "Scoped users are onboarded and end-user training is complete.",
+      "IC and CSM sync is complete.",
+      "Hypercare issues are resolved and CSM is ready for ownership."
+    ],
+    watchouts:["Late CSM involvement.","Incomplete handoff context."],
+    focuses:[
+      {
+        title:"Launch and onboard",
+        blurb:"Support real user adoption.",
+        why:"The first days after launch shape customer confidence.",
+        tags:["Launch","Users"],
+        responsibilities:[
+          "Support the customer during launch and initial usage.",
+          "Help users transition from preparation to real-world adoption."
+        ],
+        deliverables:[
+          "Launch support coverage.",
+          "Initial user onboarding."
+        ],
+        handoffExpectations:[
+          "Hypercare should start with a clear view of launch conditions and user readiness.",
+          "Customer confidence should be reinforced during initial adoption."
+        ],
+        items:["Support onboarding.","Handle launch questions."]
+      },
+      {
+        title:"Manage hypercare",
+        blurb:"Stabilize issues quickly.",
+        why:"Hypercare is where trust is won or lost.",
+        tags:["Hypercare","Support"],
+        responsibilities:[
+          "Track and resolve early issues quickly and visibly.",
+          "Coordinate support across teams when needed."
+        ],
+        deliverables:[
+          "Issue resolution tracking.",
+          "Stabilized post-launch environment."
+        ],
+        handoffExpectations:[
+          "The customer should see active ownership during the early post-launch period.",
+          "The transition to CSM should happen after core stabilization."
+        ],
+        items:["Track issues.","Coordinate fixes."]
+      },
+      {
+        title:"Reintroduce CSM",
+        blurb:"Shift toward ongoing ownership.",
+        why:"The CSM should not appear as an afterthought.",
+        tags:["CSM","Ownership"],
+        responsibilities:[
+          "Bring the CSM back into the relationship before implementation fully exits.",
+          "Begin shifting ownership toward steady-state management."
+        ],
+        deliverables:[
+          "CSM reintroduction.",
+          "Internal ownership alignment."
+        ],
+        handoffExpectations:[
+          "The customer should recognize the CSM as the next owner before implementation closes out.",
+          "Ownership shift should feel intentional and coordinated."
+        ],
+        items:["Reintroduce CSM.","Complete internal sync."]
+      },
+      {
+        title:"Close out implementation",
+        blurb:"Make the project operationally complete.",
+        why:"Implementation should end with clean records.",
+        tags:["Records","CSAT"],
+        responsibilities:[
+          "Finalize project artifacts and close remaining implementation obligations.",
+          "Document the final implementation state."
+        ],
+        deliverables:[
+          "Updated project plan.",
+          "Closeout-ready records."
+        ],
+        handoffExpectations:[
+          "The customer and internal teams should inherit a clean and current project record.",
+          "Implementation should not exit with avoidable ambiguity."
+        ],
+        items:["Update project plan.","Handle CSAT context."]
+      },
+      {
+        title:"Transition cleanly",
+        blurb:"Move the relationship forward.",
+        why:"A clean transition prevents confusion right after launch.",
+        tags:["Exit","Handoff"],
+        responsibilities:[
+          "Resolve critical issues before full ownership transfer.",
+          "Advance the project only when the customer is stable enough for CSM ownership."
+        ],
+        deliverables:[
+          "Resolved critical issues.",
+          "Project ready for Stage 6."
+        ],
+        handoffExpectations:[
+          "CSM should inherit a stable customer with clear context and current documentation.",
+          "Implementation should not exit before the handoff is operationally sound."
+        ],
+        items:["Resolve critical issues.","Move IR to S6."]
+      }
+    ]
+  },
+  {
+    id:"S6",
+    name:"Transition to CSM",
+    theme:"Completion and ownership transfer",
+    title:"Stage 6: Transition to CSM",
+    desc:"Finalize implementation closure and complete ownership transfer.",
+    timeline:"1 day",
+    teams:["CSM","IC"],
+    guru:"https://app.getguru.com/card/Tx7z9B6c/Upmarket-S6-Transitioned-to-CSM",
+    successCriteria:[
+      "IR is fully up to date.",
+      "Ownership has cleanly transferred to CSM.",
+      "Implementation is administratively closed."
+    ],
+    watchouts:["Incomplete fields.","Ownership transfer assumed."],
+    focuses:[
+      {
+        title:"Complete IR hygiene",
+        blurb:"Finish the record properly.",
+        why:"Administrative sloppiness at the end creates confusion.",
+        tags:["IR","Closure"],
+        responsibilities:[
+          "Complete all implementation-record fields and final administrative tasks.",
+          "Ensure the final record accurately reflects the implementation outcome."
+        ],
+        deliverables:[
+          "Completed implementation record.",
+          "Clean final record quality."
+        ],
+        handoffExpectations:[
+          "CSM should inherit a complete and trustworthy implementation record.",
+          "The record should not require reconstruction after transfer."
+        ],
+        items:["Complete all IC-owned fields.","Review record quality."]
+      },
+      {
+        title:"Document exceptions",
+        blurb:"Capture what needs explanation.",
+        why:"Exceptions should be documented while context is fresh.",
+        tags:["SLA","Exceptions"],
+        responsibilities:[
+          "Capture any exceptions, misses, or contextual notes before closure.",
+          "Document the reasons behind deviations while knowledge is still current."
+        ],
+        deliverables:[
+          "Exception notes.",
+          "Contextual documentation."
+        ],
+        handoffExpectations:[
+          "CSM should receive any exceptions with enough context to understand them.",
+          "Nothing material should be left implied at handoff."
+        ],
+        items:["Document missed reasons.","Capture relevant context."]
+      },
+      {
+        title:"Confirm ownership transfer",
+        blurb:"Make the handoff explicit.",
+        why:"A clean transfer avoids ambiguity about ownership.",
+        tags:["Ownership","CSM"],
+        responsibilities:[
+          "Explicitly confirm that ownership has shifted to the CSM.",
+          "Remove ambiguity about who leads the customer relationship going forward."
+        ],
+        deliverables:[
+          "Confirmed ownership transfer.",
+          "Clear future ownership model."
+        ],
+        handoffExpectations:[
+          "The customer and internal teams should understand that implementation ownership has ended.",
+          "The transition should be operationally explicit, not implied."
+        ],
+        items:["Confirm CSM owns customer.","Ensure ownership is clear."]
+      },
+      {
+        title:"Close the implementation",
+        blurb:"End the stage with final status.",
+        why:"The work should end decisively.",
+        tags:["Status","Complete"],
+        responsibilities:[
+          "Finalize implementation status and close the project record.",
+          "Ensure the implementation closes in a deliberate and complete way."
+        ],
+        deliverables:[
+          "Final IR status.",
+          "Closed implementation."
+        ],
+        handoffExpectations:[
+          "The project should end with a clean administrative state.",
+          "CSM should inherit a customer that is no longer in implementation limbo."
+        ],
+        items:["Set final IR status.","Confirm closure."]
+      },
+      {
+        title:"Preserve continuity",
+        blurb:"Leave usable context behind.",
+        why:"The next team should not need to reconstruct what happened.",
+        tags:["Context","Continuity"],
+        responsibilities:[
+          "Preserve the context that will help the CSM support the customer effectively.",
+          "Leave behind usable notes, not just completed fields."
+        ],
+        deliverables:[
+          "Clear transition notes.",
+          "Usable continuity context."
+        ],
+        handoffExpectations:[
+          "CSM should start with enough context to continue the relationship confidently.",
+          "Continuity should be preserved without requiring re-discovery."
+        ],
+        items:["Leave clear notes.","Ensure clean context."]
+      }
+    ]
+  }
+];
+
+let selectedStage = 0;
+let selectedFocus = 0;
+
+const stageList = document.getElementById("stageList");
+const heroTitle = document.getElementById("heroTitle");
+const heroDesc = document.getElementById("heroDesc");
+const heroTimeline = document.getElementById("heroTimeline");
+const heroTeams = document.getElementById("heroTeams");
+const guruLink = document.getElementById("guruLink");
+const focusGrid = document.getElementById("focusGrid");
+const detailTitle = document.getElementById("detailTitle");
+const detailWhy = document.getElementById("detailWhy");
+const detailTags = document.getElementById("detailTags");
+const detailList = document.getElementById("detailList");
+const responsibilitiesList = document.getElementById("responsibilitiesList");
+const deliverablesList = document.getElementById("deliverablesList");
+const handoffList = document.getElementById("handoffList");
+const successBack = document.getElementById("successBack");
+const watchBack = document.getElementById("watchBack");
+const successFlip = document.getElementById("successFlip");
+const watchFlip = document.getElementById("watchFlip");
+
+function stageStatus(index){
+  if(index < selectedStage) return "Complete";
+  if(index === selectedStage) return "Current";
+  return "Upcoming";
+}
+
+function renderStages(){
+  stageList.innerHTML = "";
+  stages.forEach((stage, i) => {
+    const btn = document.createElement("button");
+    btn.className = i === selectedStage ? "stage-btn current" : "stage-btn";
+    btn.innerHTML = `
+      <div class="stage-row">
+        <span class="stage-code">${stage.id}</span>
+        <span class="stage-status">${stageStatus(i)}</span>
+      </div>
+      <div class="stage-name">${stage.name}</div>
+      <div class="stage-theme">${stage.theme}</div>
+    `;
+    btn.addEventListener("click", () => {
+      selectedStage = i;
+      selectedFocus = 0;
+      renderAll();
+      window.scrollTo({top:0, behavior:"smooth"});
+    });
+    stageList.appendChild(btn);
+  });
+}
+
+function renderHero(){
+  const s = stages[selectedStage];
+  heroTitle.textContent = s.title;
+  heroDesc.textContent = s.desc;
+  heroTimeline.textContent = s.timeline;
+  heroTeams.textContent = s.teams.join(" · ");
+  guruLink.textContent = "Guru";
+  guruLink.href = s.guru;
+}
+
+function renderL1(){
+  const s = stages[selectedStage];
+  focusGrid.innerHTML = "";
+  s.focuses.forEach((f, i) => {
+    const btn = document.createElement("button");
+    btn.className = i === selectedFocus ? "focus-btn active" : "focus-btn";
+    btn.innerHTML = `
+      <div class="focus-icon">${i + 1}</div>
+      <strong>${f.title}</strong>
+      <span>${f.blurb}</span>
+    `;
+    btn.addEventListener("click", () => {
+      selectedFocus = i;
+      renderL1();
+      renderL2();
+    });
+    focusGrid.appendChild(btn);
+  });
+}
+
+function renderChecklist(target, items){
+  target.innerHTML = "";
+  items.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "detail-item";
+    row.innerHTML = `<div class="detail-dot">✓</div><div class="detail-text">${item}</div>`;
+    target.appendChild(row);
+  });
+}
+
+function renderL2(){
+  const s = stages[selectedStage];
+  const f = s.focuses[selectedFocus];
+
+  detailTitle.textContent = f.title;
+  detailWhy.textContent = f.why;
+
+  detailTags.innerHTML = "";
+  (f.tags || []).forEach(tag => {
+    const pill = document.createElement("span");
+    pill.className = "pill";
+    pill.textContent = tag;
+    detailTags.appendChild(pill);
+  });
+
+  renderChecklist(responsibilitiesList, f.responsibilities || []);
+  renderChecklist(deliverablesList, f.deliverables || []);
+  renderChecklist(handoffList, f.handoffExpectations || []);
+  renderChecklist(detailList, f.items || []);
+
+  successBack.innerHTML = "";
+  s.successCriteria.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    successBack.appendChild(li);
+  });
+
+  watchBack.innerHTML = "";
+  s.watchouts.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    watchBack.appendChild(li);
+  });
+
+  successFlip.classList.remove("open");
+  watchFlip.classList.remove("open");
+}
+
+function setupFlip(card){
+  card.addEventListener("mouseenter", () => {
+    card.classList.add("open");
+  });
+  const back = card.querySelector(".mini-back");
+  back.addEventListener("click", (e) => {
+    e.stopPropagation();
+    card.classList.remove("open");
+  });
+}
+
+setupFlip(successFlip);
+setupFlip(watchFlip);
+
+function renderAll(){
+  renderStages();
+  renderHero();
+  renderL1();
+  renderL2();
+}
+
+renderAll();
+</script>
+
+<div class="tutor-widget collapsed" id="tutorWidget">
+  <div class="tutor-shell">
+    <div class="tutor-header" id="tutorHeader">
+      <div class="tutor-title-wrap">
+        <div class="tutor-icon">AI</div>
+        <div>
+          <div class="tutor-title">Upmarket IC Tutor</div>
+          
+        </div>
+      </div>
+      <div class="tutor-controls">
+        <button class="tutor-ctrl" id="tutorCollapseBtn" title="Expand">+</button>
+      </div>
+    </div>
+    <div class="tutor-body">
+      <div class="tutor-messages" id="tutorMessages"></div>
+      <div class="tutor-quick">
+        <button class="tutor-chip" data-q="Explain this focus area.">Explain this focus area</button>
+        <button class="tutor-chip" data-q="What are the IC responsibilities here?">IC responsibilities</button>
+        <button class="tutor-chip" data-q="What are the deliverables here?">Deliverables</button>
+        <button class="tutor-chip" data-q="What are the handoff expectations here?">Handoff expectations</button>
+      </div>
+      <form class="tutor-form" id="tutorForm">
+        <input class="tutor-input" id="tutorInput" placeholder="Ask about the selected stage or focus area" />
+        <button class="tutor-send" type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+const tutorSystemPrompt = `You are an AI tutor for the Brex Upmarket Implementation Methodology.
+
+Your purpose is to develop real expertise in Upmarket Implementation Consultants (ICs). Learners must be able to clearly explain each stage, recognize it in realistic scenarios, and apply sound judgment in Upmarket engagements.
+
+You are concise, structured, and precise.
+
+KNOWLEDGE BOUNDARY
+Use only the uploaded PDF resources provided in this workspace.
+Do not use Guru pages, prior general knowledge, external knowledge, or undocumented assumptions.
+Do not reference other segments.
+Do not infer undocumented steps.
+If something is not clearly supported by the uploaded PDFs, say exactly:
+“That detail is not defined in the uploaded Upmarket documentation.”
+
+ROLE AND SCOPE
+You are supporting Upmarket Implementation Consultants (ICs) only.
+Prioritize:
+- stage intent
+- IC responsibilities
+- deliverables
+- handoff expectations
+- success criteria
+- practical judgment in realistic implementation scenarios
+
+INTERFACE AWARENESS
+When available, use the current interface context:
+- selected stage
+- selected focus area
+- visible section content`;
+
+const tutorWidget = document.getElementById("tutorWidget");
+const tutorHeader = document.getElementById("tutorHeader");
+const tutorCollapseBtn = document.getElementById("tutorCollapseBtn");
+const tutorMessages = document.getElementById("tutorMessages");
+const tutorForm = document.getElementById("tutorForm");
+const tutorInput = document.getElementById("tutorInput");
+
+function currentStage(){ return stages[selectedStage]; }
+function currentFocus(){ return stages[selectedStage].focuses[selectedFocus]; }
+
+
+function addTutorMessage(role, text){
+  const msg = document.createElement("div");
+  msg.className = `tutor-msg ${role}`;
+  msg.textContent = text;
+  tutorMessages.appendChild(msg);
+  tutorMessages.scrollTop = tutorMessages.scrollHeight;
+}
+
+function stageBreakdownText(stage){
+  return [
+    stage.title,
+    `Goal: ${stage.desc}`,
+    `Success Criteria: ${stage.successCriteria.join(" | ")}`,
+    `Watch Out For: ${stage.watchouts.join(" | ")}`
+  ].join("\n");
+}
+
+function focusResponse(question){
+  const s = currentStage();
+  const f = currentFocus();
+  const q = question.toLowerCase();
+
+  if (q.includes("responsibil")) {
+    return `Responsibilities for ${f.title}:\n- ${f.responsibilities.join("\n- ")}`;
+  }
+  if (q.includes("deliverable")) {
+    return `Deliverables for ${f.title}:\n- ${f.deliverables.join("\n- ")}`;
+  }
+  if (q.includes("handoff")) {
+    return `Handoff expectations for ${f.title}:\n- ${f.handoffExpectations.join("\n- ")}`;
+  }
+  if (q.includes("success criteria")) {
+    return `Stage success criteria for ${s.id}:\n- ${s.successCriteria.join("\n- ")}`;
+  }
+  if (q.includes("watch")) {
+    return `Watch-outs for ${s.id}:\n- ${s.watchouts.join("\n- ")}`;
+  }
+  if (q.includes("explain") || q.includes("focus area")) {
+    return `${f.title}\nWhy it matters: ${f.why}\n\nResponsibilities:\n- ${f.responsibilities.join("\n- ")}\n\nWhat to do:\n- ${f.items.join("\n- ")}`;
+  }
+  if (q.includes("stage")) {
+    return stageBreakdownText(s);
+  }
+  return `Here’s the clearest PDF-grounded answer for the current context.\n\n${f.title}\n- Responsibility: ${f.responsibilities[0]}\n- Deliverable: ${f.deliverables[0]}\n- Handoff expectation: ${f.handoffExpectations[0]}\n\nAsk about responsibilities, deliverables, handoff expectations, success criteria, or watch-outs.`;
+}
+
+document.querySelectorAll(".tutor-chip").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const q = btn.getAttribute("data-q");
+    addTutorMessage("user", q);
+    addTutorMessage("assistant", focusResponse(q));
+  });
+});
+
+tutorForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const q = tutorInput.value.trim();
+  if (!q) return;
+  addTutorMessage("user", q);
+  addTutorMessage("assistant", focusResponse(q));
+  tutorInput.value = "";
+});
+
+tutorCollapseBtn.addEventListener("click", () => {
+  tutorWidget.classList.toggle("collapsed");
+  tutorCollapseBtn.textContent = tutorWidget.classList.contains("collapsed") ? "+" : "–";
+  tutorCollapseBtn.title = tutorWidget.classList.contains("collapsed") ? "Expand" : "Collapse";
+});
+
+let drag = {active:false, offsetX:0, offsetY:0};
+tutorHeader.addEventListener("mousedown", (e) => {
+  if (e.target.closest("button")) return;
+  drag.active = true;
+  const rect = tutorWidget.getBoundingClientRect();
+  tutorWidget.style.left = rect.left + "px";
+  tutorWidget.style.top = rect.top + "px";
+  tutorWidget.style.right = "auto";
+  tutorWidget.style.bottom = "auto";
+  drag.offsetX = e.clientX - rect.left;
+  drag.offsetY = e.clientY - rect.top;
+});
+window.addEventListener("mousemove", (e) => {
+  if (!drag.active) return;
+  tutorWidget.style.left = (e.clientX - drag.offsetX) + "px";
+  tutorWidget.style.top = (e.clientY - drag.offsetY) + "px";
+});
+window.addEventListener("mouseup", () => { drag.active = false; });
+
+const originalRenderAll = renderAll;
+renderAll = function(){
+  originalRenderAll();
+};
+
+</script>
+
+
+<div class="wrapper-tutor" id="wrapperTutor">
+  <div class="wrapper-left">
+    <div class="wt-title">Upmarket IC Tutor (Guide)</div>
+    <div class="wt-sub" id="wtStageLabel">Stage: —</div>
+    <div class="wt-sub" id="wtFocusLabel">Focus: —</div>
+    <div class="wt-note">Use the buttons to navigate the guided flow. When the tutor asks a question, answer it in Gemini.</div>
+  </div>
+  <div class="wrapper-mid">
+    <div class="wt-instruction" id="wtInstruction">Which stage would you like to explore? Select S0–S6 on the left.</div>
+    <div style="display:flex;gap:8px;">
+      <button class="wt-btn wt-small" id="wtPrev">Previous</button>
+      <button class="wt-btn wt-small" id="wtNext">Next Step</button>
+      <button class="wt-btn wt-small" id="wtReset">Restart</button>
+      <button class="wt-btn wt-small" id="wtExample">Show Example</button>
+      <button class="wt-btn wt-small" id="wtScenario">Ask Scenario</button>
+    </div>
+  </div>
+  <div class="wrapper-right">
+    <div style="width:100%; display:flex; gap:8px; flex-direction:column;">
+      <button class="wt-btn wt-primary" id="wtOpenGem">Answer in Gemini Tutor</button>
+      <button class="wt-btn wt-secondary" id="wtOpenResource">Open Stage Resource</button>
+      <div style="height:8px"></div>
+      <div class="wt-note" id="wtStepIndicator">Step 1 of 4</div>
+      <div class="wt-note">Gemini may reopen prior history. Start a new chat there if needed.</div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+(function(){
+  const gemUrl = "https://gemini.google.com/gem/df6d02ad356d/4a91f774fd5d1423";
+  const stagesMap = {
+    S0: "https://app.getguru.com/card/TAeyk5Mc/Upmarket-S0-SalestoService",
+    S1: "https://app.getguru.com/card/iGedL5bT/Upmarket-S1-Kickoff-",
+    S2: "https://app.getguru.com/card/cX5BR69i/Upmarket-S2-Gathering-Requirements-Design",
+    S3: "https://app.getguru.com/card/c7xRq67i/Upmarket-S3-Configuration-Integration",
+    S4: "https://app.getguru.com/card/ck9bjBGi/Upmarket-S4-Go-Live-Prep-Validation-Testing-Training",
+    S5: "https://app.getguru.com/card/cjMB46Ai/Upmarket-S5-GoLive-Hypercare",
+    S6: "https://app.getguru.com/card/Tx7z9B6c/Upmarket-S6-Transitioned-to-CSM"
+  };
+
+  const steps = [
+    {id:1, text:"Which stage would you like to explore? Select S0–S6 on the left.", action:"awaitStage"},
+    {id:2, text:"Great — now select a focus area (Stage at a Glance) on the right.", action:"awaitFocus"},
+    {id:3, text:"Review Responsibilities and Deliverables in the L2 panel. When ready, open the Gemini tutor for a short knowledge check.", action:"review"},
+    {id:4, text:"Open the Gemini tutor to run a scenario or ask questions. Use the 'Answer in Gemini Tutor' button.", action:"openGem"}
+  ];
+
+  let curStep = 1;
+
+  const wtInstruction = document.getElementById("wtInstruction");
+  const wtStageLabel = document.getElementById("wtStageLabel");
+  const wtFocusLabel = document.getElementById("wtFocusLabel");
+  const wtStepIndicator = document.getElementById("wtStepIndicator");
+  const wtNext = document.getElementById("wtNext");
+  const wtPrev = document.getElementById("wtPrev");
+  const wtReset = document.getElementById("wtReset");
+  const wtOpenGem = document.getElementById("wtOpenGem");
+  const wtOpenResource = document.getElementById("wtOpenResource");
+  const wtExample = document.getElementById("wtExample");
+  const wtScenario = document.getElementById("wtScenario");
+
+  function render(){
+    const stage = (typeof selectedStage !== 'undefined') ? selectedStage : null;
+    const focus = (typeof selectedFocus !== 'undefined') ? selectedFocus : null;
+    wtInstruction.textContent = steps[curStep-1].text;
+    wtStepIndicator.textContent = "Step " + curStep + " of " + steps.length;
+    wtStageLabel.textContent = "Stage: " + (stage != null ? stages[stage].id + " · " + stages[stage].name : "—");
+    wtFocusLabel.textContent = "Focus: " + (focus != null ? stages[stage].focuses[focus].title : "—");
+    wtPrev.disabled = curStep===1;
+    wtNext.disabled = false;
+    wtOpenResource.disabled = stage==null;
+  }
+
+  const origSetSelectedStage = window.selectStage;
+  if(typeof origSetSelectedStage === 'function'){
+    window.selectStage = function(i){
+      origSetSelectedStage(i);
+      curStep = 2;
+      render();
+    };
+  }
+
+  const origSetSelectedFocus = window.selectFocus;
+  if(typeof origSetSelectedFocus === 'function'){
+    window.selectFocus = function(i){
+      origSetSelectedFocus(i);
+      curStep = 3;
+      render();
+    };
+  }
+
+  wtNext.addEventListener("click", ()=>{
+    if(curStep < steps.length) curStep++;
+    render();
+    const step = steps[curStep-1];
+    if(step.action === "awaitStage"){
+    } else if(step.action === "awaitFocus"){
+      const gag = document.querySelectorAll(".stage-at-a-glance .btn");
+      if(gag && gag.length) gag[0].scrollIntoView({behavior:"smooth", block:"center"});
+    } else if(step.action === "review"){
+      const l2 = document.querySelector(".selected-focus-area") || document.querySelector(".l2-panel");
+      if(l2) l2.scrollIntoView({behavior:"smooth", block:"center"});
+    } else if(step.action === "openGem"){
+      window.open(gemUrl, "_blank");
+    }
+  });
+
+  wtPrev.addEventListener("click", ()=>{
+    if(curStep > 1) curStep--;
+    render();
+  });
+
+  wtReset.addEventListener("click", ()=>{
+    curStep = 1;
+    render();
+  });
+
+  wtOpenGem.addEventListener("click", ()=>{
+    window.open(gemUrl, "_blank");
+  });
+
+  wtOpenResource.addEventListener("click", ()=>{
+    const stage = (typeof selectedStage !== 'undefined') ? selectedStage : null;
+    if(stage==null){ alert("Please select a stage first."); return; }
+    const id = stages[stage].id;
+    const url = stagesMap[id] || "";
+    if(url) window.open(url, "_blank");
+    else alert("No resource mapped for this stage.");
+  });
+
+  render();
+
+  document.querySelectorAll(".stages-list .stage-btn, .stages .stage-btn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      setTimeout(()=>{ render(); }, 150);
+    });
+  });
+
+  window.wrapperTutorNext = ()=> wtNext.click();
+  window.wrapperTutorPrev = ()=> wtPrev.click();
+
+  wtExample.addEventListener("click", ()=>{
+    const stage = (typeof selectedStage !== 'undefined') ? selectedStage : null;
+    const focus = (typeof selectedFocus !== 'undefined') ? selectedFocus : null;
+    if(stage == null){
+      wtInstruction.textContent = "Example: If a Sales-to-Service handoff just happened, start by selecting S0 on the left. Then open Gemini when you are ready to explain your reasoning.";
+      return;
+    }
+    if(focus == null){
+      wtInstruction.textContent = "Example: After selecting a stage, use Stage at a Glance to open the workstream you want to review. Then answer in Gemini.";
+      return;
+    }
+    const s = stages[stage];
+    const f = stages[stage].focuses[focus];
+    wtInstruction.textContent = `Example: In ${s.id}, if you were reviewing "${f.title}", you would use Responsibilities, Deliverables, and Handoff Expectations below to judge whether the work is actually complete.`;
+  });
+
+  wtScenario.addEventListener("click", ()=>{
+    const stage = (typeof selectedStage !== 'undefined') ? selectedStage : null;
+    if(stage == null){
+      wtInstruction.textContent = "Scenario: A handoff just happened, but nobody is sure whether the stage can move forward. Select the stage on the left first, then answer in Gemini.";
+      return;
+    }
+    const s = stages[stage];
+    wtInstruction.textContent = `Scenario: You are reviewing ${s.id}. A stakeholder says the stage is done because the main meeting happened. Which sections in this interface would you check before deciding whether ${s.id} is actually ready to advance?`;
+  });
+
+  window.wrapperTutorReset = ()=> wtReset.click();
+
+})();
+</script>
+
+
+<div class="tour-overlay" id="tourOverlay"></div>
+<div class="tour-highlight" id="tourHighlight"></div>
+
+<div class="tour-start active" id="tourStart">
+  <div class="tour-start-head">Would you like a quick walkthrough with examples?</div>
+  <div class="tour-start-body">This short tour shows what each section is for and how an IC would actually use it.</div>
+  <div class="tour-start-foot">
+    <button class="tour-btn" id="tourSkipStart">Skip</button>
+    <button class="tour-btn primary" id="tourBegin">Start Tour</button>
+  </div>
+</div>
+
+<div class="tour-card" id="tourCard">
+  <div class="tour-card-head" id="tourTitle"></div>
+  <div class="tour-card-body" id="tourBody"></div>
+  <div class="tour-card-foot">
+    <div class="tour-step" id="tourStep"></div>
+    <div class="tour-btns">
+      <button class="tour-btn" id="tourBack">Back</button>
+      <button class="tour-btn" id="tourSkip">Skip Tour</button>
+      <button class="tour-btn primary" id="tourNext">Next</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+(function(){
+  const tourOverlay = document.getElementById("tourOverlay");
+  const tourHighlight = document.getElementById("tourHighlight");
+  const tourCard = document.getElementById("tourCard");
+  const tourStart = document.getElementById("tourStart");
+  const tourTitle = document.getElementById("tourTitle");
+  const tourBody = document.getElementById("tourBody");
+  const tourStep = document.getElementById("tourStep");
+  const tourBack = document.getElementById("tourBack");
+  const tourNext = document.getElementById("tourNext");
+  const tourSkip = document.getElementById("tourSkip");
+  const tourBegin = document.getElementById("tourBegin");
+  const tourSkipStart = document.getElementById("tourSkipStart");
+
+  const tourSteps = [
+    {
+      title: "Stages",
+      body: "Example: a Sales-to-Service handoff just happened. You would start here by selecting S0 so the rest of the interface matches that stage.",
+      target: ".left"
+    },
+    {
+      title: "Stage at a Glance",
+      body: "Example: if you need to review the live handoff itself, you would use one of these cards to open that specific workstream.",
+      target: "#focusGrid"
+    },
+    {
+      title: "Detailed Guidance",
+      body: "This is the working panel. Use it to answer: what am I responsible for, what has to exist, what gets handed forward, and what do I do next?",
+      target: ".detail"
+    },
+    {
+      title: "Stage Guardrails",
+      body: "Use these as stage guardrails. Example: if a meeting happened but the assets are still incomplete, these cards help you decide whether the stage is actually ready to advance.",
+      target: ".hero-side"
+    },
+    {
+      title: "Resource",
+      body: "Use this when you need the real stage guide or job aid behind the interface.",
+      target: "#guruLink"
+    }
+  ];
+
+  let currentTourStep = 0;
+
+  function showCardForTarget(el){
+    el.scrollIntoView({behavior:"smooth", block:"center"});
+    setTimeout(() => {
+      const rect = el.getBoundingClientRect();
+      const pad = 8;
+      tourHighlight.style.left = (rect.left - pad) + "px";
+      tourHighlight.style.top = (rect.top - pad) + "px";
+      tourHighlight.style.width = (rect.width + pad * 2) + "px";
+      tourHighlight.style.height = (rect.height + pad * 2) + "px";
+
+      let cardLeft = rect.right + 16;
+      let cardTop = rect.top;
+      const maxLeft = window.innerWidth - tourCard.offsetWidth - 16;
+      if(cardLeft > maxLeft) cardLeft = Math.max(16, rect.left - tourCard.offsetWidth - 16);
+      const maxTop = window.innerHeight - tourCard.offsetHeight - 16;
+      if(cardTop > maxTop) cardTop = Math.max(16, maxTop);
+      if(cardTop < 16) cardTop = 16;
+
+      tourCard.style.left = cardLeft + "px";
+      tourCard.style.top = cardTop + "px";
+    }, 250);
+  }
+
+  function renderTour(){
+    const step = tourSteps[currentTourStep];
+    const target = document.querySelector(step.target);
+    if(!target) return;
+
+    tourOverlay.classList.add("active");
+    tourHighlight.classList.add("active");
+    tourCard.classList.add("active");
+
+    tourTitle.textContent = step.title;
+    tourBody.textContent = step.body;
+    tourStep.textContent = "Step " + (currentTourStep + 1) + " of " + tourSteps.length;
+    tourBack.disabled = currentTourStep === 0;
+    tourNext.textContent = currentTourStep === tourSteps.length - 1 ? "Finish" : "Next";
+
+    showCardForTarget(target);
+  }
+
+  function endTour(){
+    tourOverlay.classList.remove("active");
+    tourHighlight.classList.remove("active");
+    tourCard.classList.remove("active");
+    tourStart.classList.remove("active");
+    const wtInstruction = document.getElementById("wtInstruction");
+    if(wtInstruction){
+      wtInstruction.textContent = "Scenario: A kickoff is scheduled, but the project plan has not been updated. Which part of this interface would you use to judge whether the stage is ready to move forward? When ready, answer in Gemini.";
+    }
+  }
+
+  tourBegin.addEventListener("click", () => {
+    tourStart.classList.remove("active");
+    renderTour();
+  });
+  tourSkipStart.addEventListener("click", endTour);
+  tourSkip.addEventListener("click", endTour);
+
+  tourNext.addEventListener("click", () => {
+    if(currentTourStep < tourSteps.length - 1){
+      currentTourStep += 1;
+      renderTour();
+    } else {
+      endTour();
+    }
+  });
+
+  tourBack.addEventListener("click", () => {
+    if(currentTourStep > 0){
+      currentTourStep -= 1;
+      renderTour();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if(tourCard.classList.contains("active")) renderTour();
+  });
+  window.addEventListener("scroll", () => {
+    if(tourCard.classList.contains("active")) renderTour();
+  });
+})();
+</script>
+
+</body>
+</html>
